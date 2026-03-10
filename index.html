@@ -656,8 +656,123 @@
       .three-col { grid-template-columns: 1fr; }
       .slide-img { max-width: 90%; }
     }
+
+    /* Evolution progress bar */
+    .evo-journey { width: 100%; max-width: 900px; }
+
+    .evo-progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    .evo-step { display: flex; align-items: center; gap: 0; flex: 1; }
+
+    .evo-dot {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+      border: 2px solid var(--border); background: var(--card);
+      color: var(--muted); transition: all 0.3s ease;
+    }
+    .evo-dot.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white; border-color: var(--primary);
+      box-shadow: 0 2px 12px oklch(0.52 0.24 290 / 0.3);
+    }
+    .evo-dot.done {
+      background: oklch(0.52 0.24 290 / 0.12);
+      color: var(--primary); border-color: oklch(0.52 0.24 290 / 0.3);
+    }
+
+    .evo-line {
+      flex: 1; height: 2px; background: var(--border);
+      transition: background 0.3s ease;
+    }
+    .evo-line.done {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .evo-step-wrapper {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .evo-step-label {
+      font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem;
+      text-align: center; white-space: nowrap;
+    }
+
+    .evo-card-main {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 2.5rem;
+      box-shadow: 0 1px 3px oklch(0.52 0.24 290 / 0.06),
+                  0 8px 24px oklch(0.52 0.24 290 / 0.08);
+      width: 100%;
+    }
+    .evo-card-main img {
+      max-width: 100%; max-height: 40vh; border-radius: 0.75rem;
+      box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);
+    }
+
+    /* Coding agents grid */
+    .agents-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; width: 100%; max-width: 900px;
+    }
+    .agents-grid .card { text-align: center; padding: 1.5rem 1rem; }
+    .agents-grid .card h3 {
+      font-size: 1.1rem; margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem; border-bottom: 2px solid var(--border);
+    }
+    .agents-grid .card ul { text-align: left; }
+    .agents-grid .card li { font-size: 0.95rem; margin-bottom: 0.4rem; }
+
+    @media (max-width: 900px) {
+      .agents-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Transition / zoom slides */
+    .transition-slide {
+      justify-content: center; align-items: center;
+    }
+    .transition-label {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: 2.4rem; color: var(--primary); margin-bottom: 1rem;
+      text-align: center;
+    }
+    .transition-sub {
+      font-size: 1.1rem; color: var(--muted); text-align: center;
+      max-width: 600px; line-height: 1.6;
+    }
+
+    /* Zoom highlight styles for loop nodes */
+    .loop-faded { opacity: 0.25; }
+    .loop-highlight { opacity: 1; filter: drop-shadow(0 0 8px oklch(0.52 0.24 290 / 0.4)); }
+
+    /* Demo content slide */
+    .demo-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1rem; padding: 2rem 2.5rem;
+      box-shadow: 0 1px 3px oklch(0.52 0.24 290 / 0.06),
+                  0 8px 24px oklch(0.52 0.24 290 / 0.08);
+      width: 100%; max-width: 850px;
+    }
+    .demo-card h3 { margin-bottom: 0.75rem; }
+    .demo-card p { font-size: 1.05rem; line-height: 1.6; margin-bottom: 0.5rem; }
+    .demo-card li { font-size: 1.05rem; }
+
+    /* Version control two-col */
+    .vc-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; width: 100%; max-width: 850px;
+    }
+    @media (max-width: 900px) {
+      .vc-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
+
 <body>
   <div class="deck" id="deck">
 
@@ -686,20 +801,20 @@
       </div>
     </div>
 
-    <!-- SLIDE 2: Agenda -->
+    <!-- SLIDE 2: Agenda (updated) -->
     <div class="slide" data-slide="2">
       <h2>Agenda</h2>
       <div class="card" style="width: 100%; max-width: 700px;">
         <ul>
-          <li>What is Agentic Coding?</li>
-          <li>Best Practices for Agentic Coding
+          <li>The Evolution of AI &amp; Coding</li>
+          <li>Coding Agents &amp; the Agentic Loop</li>
+          <li>Demo: Gather Context, Take Action &amp; Verification</li>
+          <li>Best Practices
             <ul style="margin-top: 0.5rem; margin-left: 0.5rem;">
-              <li style="font-size: 1.15rem; color: var(--muted);">Context &mdash; skill.md, agents.md, prompting</li>
-              <li style="font-size: 1.15rem; color: var(--muted);">Verification &mdash; unit tests, traces, functionality tests</li>
-              <li style="font-size: 1.15rem; color: var(--muted);">Version Control &mdash; commits, docs, PR reviews</li>
+              <li style="font-size: 1.15rem; color: var(--muted);">Context &mdash; skills &amp; agents.md</li>
+              <li style="font-size: 1.15rem; color: var(--muted);">Version Control &mdash; commits, branches &amp; PRs</li>
             </ul>
           </li>
-          <li>Demo: Using GitHub Copilot in PyCharm and the Terminal</li>
         </ul>
         <div class="sparkle">&#10022; &middot; &#10022; &middot; &#10022;</div>
       </div>
@@ -711,19 +826,150 @@
       <div class="sparkle">&#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022;</div>
     </div>
 
-    <!-- SLIDE 4: Full-screen code editor image -->
-    <div class="slide slide-fullscreen" data-slide="4">
-      <img src="images/pdf_fullpage4.png" alt="Code editor showing agentic coding in action" />
+    <!-- SLIDE 4: Evolution 1/3 — Code Completion -->
+    <div class="slide" data-slide="4">
+      <div class="evo-journey">
+        <div class="badge mb-1">The Evolution of AI &amp; Coding</div>
+        <h2 style="margin-bottom: 0.5rem;">Code Completion</h2>
+
+        <div class="evo-progress-bar">
+          <div class="evo-step-wrapper">
+            <div class="evo-dot active">1</div>
+            <div class="evo-step-label">Code Completion</div>
+          </div>
+          <div class="evo-line"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot">2</div>
+            <div class="evo-step-label">Code Generation</div>
+          </div>
+          <div class="evo-line"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot">3</div>
+            <div class="evo-step-label">Agentic Coding</div>
+          </div>
+        </div>
+
+        <div class="evo-card-main">
+          <h3>Autocomplete</h3>
+          <div class="center">
+            <img src="code_completion_slide_image.png" alt="Code completion autocomplete example" />
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- SLIDE 5: AI Agent definition -->
+    <!-- SLIDE 5: Evolution 2/3 — Code Generation -->
     <div class="slide" data-slide="5">
+      <div class="evo-journey">
+        <div class="badge mb-1">The Evolution of AI &amp; Coding</div>
+        <h2 style="margin-bottom: 0.5rem;">Code Generation</h2>
+
+        <div class="evo-progress-bar">
+          <div class="evo-step-wrapper">
+            <div class="evo-dot done">&#10003;</div>
+            <div class="evo-step-label">Code Completion</div>
+          </div>
+          <div class="evo-line done"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot active">2</div>
+            <div class="evo-step-label">Code Generation</div>
+          </div>
+          <div class="evo-line"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot">3</div>
+            <div class="evo-step-label">Agentic Coding</div>
+          </div>
+        </div>
+
+        <div class="evo-card-main">
+          <h3>LLM-Powered Code Generation</h3>
+          <div class="center">
+            <img src="code_generation_slide_image.png" alt="Code generation with LLM example" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: Evolution 3/3 — Agentic Coding -->
+    <div class="slide" data-slide="6">
+      <div class="evo-journey">
+        <div class="badge mb-1">The Evolution of AI &amp; Coding</div>
+        <h2 style="margin-bottom: 0.5rem;">Agentic Coding</h2>
+
+        <div class="evo-progress-bar">
+          <div class="evo-step-wrapper">
+            <div class="evo-dot done">&#10003;</div>
+            <div class="evo-step-label">Code Completion</div>
+          </div>
+          <div class="evo-line done"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot done">&#10003;</div>
+            <div class="evo-step-label">Code Generation</div>
+          </div>
+          <div class="evo-line done"></div>
+          <div class="evo-step-wrapper">
+            <div class="evo-dot active">3</div>
+            <div class="evo-step-label">Agentic Coding</div>
+          </div>
+        </div>
+
+        <div class="evo-card-main">
+          <h3>Autonomous AI in Your Workspace</h3>
+          <div class="center">
+            <img src="agentic_coding_slide_image.png" alt="Agentic coding autonomous AI example" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Coding Agents -->
+    <div class="slide" data-slide="7">
+      <h2 class="center" style="margin-bottom: 1.5rem;">Coding Agents</h2>
+      <div class="agents-grid">
+        <div class="card">
+          <h3 style="color: var(--primary);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> IDE</h3>
+          <ul>
+            <li>Copilot in VS Code</li>
+            <li>Cursor</li>
+            <li>Windsurf</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color: var(--secondary);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg> CLI</h3>
+          <ul>
+            <li>Copilot CLI</li>
+            <li>Claude Code</li>
+            <li>Aider</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color: oklch(0.60 0.14 240);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.60 0.14 240)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg> Web</h3>
+          <ul>
+            <li>Copilot in GitHub.com</li>
+            <li>ChatGPT</li>
+            <li>Claude</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color: oklch(0.65 0.14 70);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.65 0.14 70)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg> Custom</h3>
+          <ul>
+            <li>Copilot SDK</li>
+            <li>OpenAI Agents SDK</li>
+            <li>LangChain</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: What is an AI Agent -->
+    <div class="slide" data-slide="8">
       <div class="center" style="max-width: 800px;">
         <div class="badge mb-1">Core Concept</div>
-        <h2>AI Agent</h2>
+        <h2>What is an AI Agent?</h2>
+        <p style="font-size: 1.1rem; color: var(--muted); margin-bottom: 1.5rem;">A widely accepted definition today:</p>
         <div class="card" style="padding: 2.5rem 3rem; text-align: center;">
           <p style="font-size: 1.6rem; line-height: 1.6; font-weight: 500; color: var(--fg);">
-            An AI Agent is an <strong style="color: var(--primary);">LLM</strong> that runs
+            An AI Agent is an <strong style="color: var(--primary);">LLM</strong> that calls
             <strong style="color: var(--secondary);">tools</strong> in a
             <strong style="color: var(--primary);">loop</strong> to achieve a goal.
           </p>
@@ -732,68 +978,41 @@
       </div>
     </div>
 
-    <!-- SLIDE 6: Agentic Loop — inline SVG diagram matching agent-loop-picture.svg -->
-    <div class="slide" data-slide="6">
+    <!-- SLIDE 9: The Agentic Loop -->
+    <div class="slide" data-slide="9">
       <h2 class="center" style="margin-bottom: 0.5rem;">The Agentic Loop</h2>
-      <p class="small-text center" style="margin-bottom: 1.5rem;">How coding agents think, act, and iterate</p>
+      <p class="small-text center" style="margin-bottom: 1rem;">How coding agents think, act, and iterate</p>
 
       <svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" viewBox="0 0 820 310" fill="none" style="max-width: 90%; height: auto;">
-        <!-- Background -->
         <rect width="820" height="310" rx="12" fill="oklch(0.98 0.006 280)"/>
-
-        <!-- "Your prompt" box -->
         <rect x="20" y="105" width="120" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
         <text x="80" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="oklch(0.22 0.02 280)">Your prompt</text>
-
-        <!-- Agentic loop dashed border -->
         <rect x="195" y="55" width="510" height="160" rx="12" fill="none" stroke="oklch(0.82 0.02 280)" stroke-width="1.5" stroke-dasharray="6 4"/>
         <text x="450" y="78" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="oklch(0.60 0.02 280)">agentic loop</text>
-
-        <!-- Arrow: Your prompt -> Gather context -->
         <rect x="140" y="127" width="55" height="10" fill="oklch(0.98 0.006 280)"/>
         <path d="M140 132 L195 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
         <polygon points="193,127 205,132 193,137" fill="oklch(0.50 0.02 280)"/>
-
-        <!-- Gather context box -->
         <rect x="215" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
         <text x="280" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Gather context</text>
-
-        <!-- Arrow: Gather context -> Take action -->
         <path d="M345 132 L385 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
         <polygon points="383,127 395,132 383,137" fill="oklch(0.50 0.02 280)"/>
-
-        <!-- Take action box -->
         <rect x="395" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
         <text x="460" y="131" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Take action</text>
         <text x="460" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="oklch(0.50 0.02 280)">(tools)</text>
-
-        <!-- Arrow: Take action -> Verify results -->
         <path d="M525 132 L565 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
         <polygon points="563,127 575,132 563,137" fill="oklch(0.50 0.02 280)"/>
-
-        <!-- Verify results box -->
         <rect x="575" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
         <text x="640" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Verify results</text>
-
-        <!-- Loop-back arrow: Verify results -> Gather context -->
         <path d="M640 160 L640 185 Q640 195 630 195 L290 195 Q280 195 280 185 L280 165" fill="none" stroke="oklch(0.68 0.16 340 / 0.5)" stroke-width="2.5"/>
         <polygon points="275,168 280,155 285,168" fill="oklch(0.68 0.16 340 / 0.5)"/>
-
-        <!-- Arrow: Verify results -> Done -->
         <rect x="705" y="127" width="20" height="10" fill="oklch(0.98 0.006 280)"/>
         <path d="M705 132 L755 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
         <polygon points="753,127 765,132 753,137" fill="oklch(0.50 0.02 280)"/>
-
-        <!-- Done box -->
         <rect x="765" y="105" width="45" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
         <text x="787" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="oklch(0.22 0.02 280)">Done</text>
-
-        <!-- "You: interrupt, steer, or add context" box -->
         <rect x="20" y="240" width="220" height="50" rx="8" fill="oklch(0.68 0.16 340 / 0.08)" stroke="oklch(0.68 0.16 340 / 0.4)" stroke-width="1.5"/>
         <text x="130" y="260" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="oklch(0.22 0.02 280)">You: interrupt, steer,</text>
         <text x="130" y="276" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="oklch(0.22 0.02 280)">or add context</text>
-
-        <!-- Dashed arrow from "You" up to the loop -->
         <path d="M240 265 L460 265 L460 220" stroke="oklch(0.68 0.16 340 / 0.4)" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
         <polygon points="455,222 460,210 465,222" fill="oklch(0.68 0.16 340 / 0.4)"/>
       </svg>
@@ -801,261 +1020,287 @@
       <p class="small-text center mt-1" style="font-style: italic;">Source: <a href="https://code.claude.com/docs/en/how-claude-code-works" target="_blank">code.claude.com/docs/en/how-claude-code-works</a></p>
     </div>
 
-    <!-- SLIDE 7: Parts of a Coding Agent — progressive reveal -->
-    <div class="slide" data-slide="7" data-progressive="true">
-      <h2 class="center" style="margin-bottom: 1.5rem;">Parts of a Coding Agent</h2>
-      <div class="agent-arch">
-        <!-- Layer 1: Model -->
-        <div class="agent-layer layer-model prog-layer" data-prog="0">
-          <div class="layer-label">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4m0 12v4m-7.07-15.07 2.83 2.83m8.48 8.48 2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48 2.83-2.83"/></svg>
-            Model
-          </div>
-          <div class="layer-items">
-            <span class="layer-chip">OpenAI</span>
-            <span class="layer-chip">Anthropic</span>
-            <span class="layer-chip">Google</span>
-            <span class="layer-chip">Qwen</span>
-            <span class="layer-chip">DeepSeek</span>
-          </div>
-        </div>
-
-        <!-- Layer 2: Harness / Runtime -->
-        <div class="agent-layer layer-harness prog-layer" data-prog="1">
-          <div class="layer-label">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-            Harness / Runtime
-          </div>
-          <div class="layer-items">
-            <span class="layer-chip">Agentic Loop</span>
-            <span class="layer-chip">Tools</span>
-            <span class="layer-chip">Context</span>
-            <span class="layer-chip">Execution Policy</span>
-            <span class="layer-chip">Verification</span>
-          </div>
-        </div>
-
-        <!-- Layer 3: Interface -->
-        <div class="agent-layer layer-interface prog-layer" data-prog="2">
-          <div class="layer-label">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="oklch(0.65 0.14 70)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            Interface
-          </div>
-          <div class="layer-items">
-            <span class="layer-chip">IDE</span>
-            <span class="layer-chip">CLI</span>
-            <span class="layer-chip">Web App</span>
-          </div>
-        </div>
-      </div>
-      <p class="small-text center mt-2" id="progHint" style="opacity: 0.5;">Press &rarr; to reveal layers</p>
+    <!-- SLIDE 10: Transition — Gather Context (zoomed loop) -->
+    <div class="slide transition-slide" data-slide="10">
+      <svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" viewBox="0 0 820 310" fill="none" style="max-width: 80%; height: auto; margin-bottom: 1.5rem;">
+        <rect width="820" height="310" rx="12" fill="oklch(0.98 0.006 280)"/>
+        <g class="loop-faded">
+          <rect x="20" y="105" width="120" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="80" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="oklch(0.22 0.02 280)">Your prompt</text>
+          <rect x="195" y="55" width="510" height="160" rx="12" fill="none" stroke="oklch(0.82 0.02 280)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M140 132 L205 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="193,127 205,132 193,137" fill="oklch(0.50 0.02 280)"/>
+        </g>
+        <!-- Highlighted: Gather context -->
+        <g class="loop-highlight">
+          <rect x="215" y="95" width="140" height="75" rx="10" fill="oklch(0.52 0.24 290 / 0.15)" stroke="oklch(0.52 0.24 290)" stroke-width="3"/>
+          <text x="285" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.35 0.15 290)">Gather</text>
+          <text x="285" y="152" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.35 0.15 290)">context</text>
+        </g>
+        <g class="loop-faded">
+          <path d="M355 132 L395 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="383,127 395,132 383,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="395" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="460" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Take action</text>
+          <path d="M525 132 L565 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="563,127 575,132 563,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="575" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="640" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Verify results</text>
+          <path d="M640 160 L640 185 Q640 195 630 195 L290 195 Q280 195 280 185 L280 175" fill="none" stroke="oklch(0.68 0.16 340 / 0.3)" stroke-width="2"/>
+          <rect x="765" y="105" width="45" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="787" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="oklch(0.22 0.02 280)">Done</text>
+        </g>
+      </svg>
+      <div class="transition-label">Gather Context</div>
     </div>
 
-    <!-- SLIDE 8: Full-screen code editor image -->
-    <div class="slide slide-fullscreen" data-slide="8">
-      <img src="images/agentic-ide.png" alt="Code editor showing coding agent at work" />
-    </div>
-
-    <!-- SLIDE 9: Section — Best Practices -->
-    <div class="slide slide-section" data-slide="9">
-      <h2>Best Practices</h2>
-      <div class="sparkle">&#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022;</div>
-    </div>
-
-    <!-- SLIDE 10: Context 1/3 — skill.md -->
-    <div class="slide" data-slide="10">
-      <div class="context-journey">
-        <div class="badge mb-1">Best Practice #1</div>
-        <h2 style="margin-bottom: 0.5rem;">Context</h2>
-
-        <div class="context-progress-bar">
-          <div class="context-step-wrapper">
-            <div class="context-dot active">1</div>
-            <div class="context-step-label">skill.md</div>
-          </div>
-          <div class="context-line"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot">2</div>
-            <div class="context-step-label">agents.md</div>
-          </div>
-          <div class="context-line"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot">3</div>
-            <div class="context-step-label">Prompting</div>
-          </div>
-        </div>
-
-        <div class="context-card-main">
-          <h3>Curated Skills</h3>
-          <p style="font-size: 1.05rem; line-height: 1.6; margin-bottom: 1rem;">Curated Skills (beige) improve performance by <strong>+16.2pp on average</strong>; self-generated Skills (amber) provide negligible or negative benefit.</p>
-          <div class="center">
-            <img src="images/pdf_page10_img0.png" alt="Figure 1. Agent architecture stack and resolution rates across 7 agent-model configurations on 84 tasks" style="max-height: 50vh; max-width: 95%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
-          </div>
-          <p class="small-text mt-1 center" style="font-style: italic; color: oklch(0.45 0.02 280);">Figure 1. Agent architecture stack and resolution rates across 7 agent-model configurations on 84 tasks. &mdash; <a href="https://arxiv.org/html/2602.12670v1" target="_blank">arxiv.org/html/2602.12670v1</a></p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 11: Context 2/3 — agents.md -->
+    <!-- SLIDE 11: Gather Context (VS Code demo content) -->
     <div class="slide" data-slide="11">
-      <div class="context-journey">
-        <div class="badge mb-1">Best Practice #1</div>
-        <h2 style="margin-bottom: 0.5rem;">Context</h2>
-
-        <div class="context-progress-bar">
-          <div class="context-step-wrapper">
-            <div class="context-dot done">&#10003;</div>
-            <div class="context-step-label">skill.md</div>
-          </div>
-          <div class="context-line done"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot active">2</div>
-            <div class="context-step-label">agents.md</div>
-          </div>
-          <div class="context-line"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot">3</div>
-            <div class="context-step-label">Prompting</div>
-          </div>
-        </div>
-
-        <div class="context-card-main">
-          <h3>agents.md</h3>
-          <p style="font-size: 1rem; line-height: 1.5; margin-bottom: 1rem;">Developer-provided files only marginally improve performance (<strong>+4% on average</strong>), while LLM-generated context files have a small <strong>negative effect</strong> (&minus;3%). Context files <strong>increase costs by over 20%</strong>.</p>
-          <div class="center">
-            <img src="images/pdf_page11_img0.png" alt="Figure 1. Impact of context files on agent performance" style="max-height: 50vh; max-width: 95%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
-          </div>
-          <p class="small-text mt-1 center" style="font-style: italic; color: oklch(0.45 0.02 280);">These observations are robust across different LLMs and prompts. &mdash; <a href="https://arxiv.org/html/2602.11988v1" target="_blank">arxiv.org/html/2602.11988v1</a></p>
+      <div class="badge mb-1">Demo &mdash; Gather Context</div>
+      <h2 style="margin-bottom: 1rem;">Providing Context to an Agent</h2>
+      <div class="demo-card">
+        <h3>Attaching Files &amp; Resources</h3>
+        <ul>
+          <li>Attach files, screenshots, GitHub Issues &amp; PRs to the chat</li>
+          <li>Use example files with best-practice code as a starting point</li>
+        </ul>
+        <div class="glass mt-1" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem;">Instruction Files</h3>
+          <ul>
+            <li><code>copilot-instructions.md</code> &mdash; GitHub Copilot</li>
+            <li><code>cursor rules</code> &mdash; Cursor</li>
+            <li><code>claude.md</code> &mdash; Claude Code</li>
+            <li><code>agents.md</code> &mdash; OpenAI (becoming a standard)</li>
+          </ul>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 12: Context 3/3 — Prompting -->
-    <div class="slide" data-slide="12">
-      <div class="context-journey">
-        <div class="badge mb-1">Best Practice #1</div>
-        <h2 style="margin-bottom: 0.5rem;">Context</h2>
+    <!-- SLIDE 12: Transition — Take Action (zoomed loop) -->
+    <div class="slide transition-slide" data-slide="12">
+      <svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" viewBox="0 0 820 310" fill="none" style="max-width: 80%; height: auto; margin-bottom: 1.5rem;">
+        <rect width="820" height="310" rx="12" fill="oklch(0.98 0.006 280)"/>
+        <g class="loop-faded">
+          <rect x="20" y="105" width="120" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="80" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="oklch(0.22 0.02 280)">Your prompt</text>
+          <rect x="195" y="55" width="510" height="160" rx="12" fill="none" stroke="oklch(0.82 0.02 280)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M140 132 L205 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="193,127 205,132 193,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="215" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="280" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Gather context</text>
+          <path d="M345 132 L385 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="383,127 395,132 383,137" fill="oklch(0.50 0.02 280)"/>
+        </g>
+        <!-- Highlighted: Take action -->
+        <g class="loop-highlight">
+          <rect x="390" y="95" width="140" height="75" rx="10" fill="oklch(0.68 0.16 340 / 0.15)" stroke="oklch(0.68 0.16 340)" stroke-width="3"/>
+          <text x="460" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.45 0.12 340)">Take action</text>
+          <text x="460" y="152" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" fill="oklch(0.55 0.08 340)">(tools)</text>
+        </g>
+        <g class="loop-faded">
+          <path d="M530 132 L565 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="563,127 575,132 563,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="575" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="640" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Verify results</text>
+          <path d="M640 160 L640 185 Q640 195 630 195 L290 195 Q280 195 280 185 L280 175" fill="none" stroke="oklch(0.68 0.16 340 / 0.3)" stroke-width="2"/>
+          <rect x="765" y="105" width="45" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="787" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="oklch(0.22 0.02 280)">Done</text>
+        </g>
+      </svg>
+      <div class="transition-label">Take Action</div>
+    </div>
 
-        <div class="context-progress-bar">
-          <div class="context-step-wrapper">
-            <div class="context-dot done">&#10003;</div>
-            <div class="context-step-label">skill.md</div>
-          </div>
-          <div class="context-line done"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot done">&#10003;</div>
-            <div class="context-step-label">agents.md</div>
-          </div>
-          <div class="context-line done"></div>
-          <div class="context-step-wrapper">
-            <div class="context-dot active">3</div>
-            <div class="context-step-label">Prompting</div>
+    <!-- SLIDE 13: Take Action — Tools (VS Code demo content) -->
+    <div class="slide" data-slide="13">
+      <div class="badge mb-1">Demo &mdash; Take Action</div>
+      <h2 style="margin-bottom: 1rem;">Giving Agents Tools</h2>
+      <div class="demo-card">
+        <h3>MCP &mdash; Model Context Protocol</h3>
+        <ul>
+          <li>Open protocol for giving agents access to tools</li>
+          <li>In VS Code: search <code>@mcp</code> in extensions for vetted servers</li>
+          <li>You can also create your own MCP servers</li>
+        </ul>
+        <div class="glass mt-1" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem;">Agent Skills</h3>
+          <ul>
+            <li>A reusable workflow defined in a <code>SKILL.MD</code> file an agent invokes to complete a task</li>
+            <li>Skills can include tools, MCP servers, scripts and more!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 14: Transition — Verify Results (zoomed loop) -->
+    <div class="slide transition-slide" data-slide="14">
+      <svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" viewBox="0 0 820 310" fill="none" style="max-width: 80%; height: auto; margin-bottom: 1.5rem;">
+        <rect width="820" height="310" rx="12" fill="oklch(0.98 0.006 280)"/>
+        <g class="loop-faded">
+          <rect x="20" y="105" width="120" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="80" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="oklch(0.22 0.02 280)">Your prompt</text>
+          <rect x="195" y="55" width="510" height="160" rx="12" fill="none" stroke="oklch(0.82 0.02 280)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M140 132 L205 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="193,127 205,132 193,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="215" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="280" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Gather context</text>
+          <path d="M345 132 L385 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="383,127 395,132 383,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="395" y="105" width="130" height="55" rx="8" fill="oklch(0.88 0.08 290 / 0.3)"/>
+          <text x="460" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="oklch(0.22 0.02 280)">Take action</text>
+          <path d="M525 132 L565 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="563,127 575,132 563,137" fill="oklch(0.50 0.02 280)"/>
+        </g>
+        <!-- Highlighted: Verify results -->
+        <g class="loop-highlight">
+          <rect x="570" y="95" width="140" height="75" rx="10" fill="oklch(0.78 0.14 70 / 0.15)" stroke="oklch(0.65 0.14 70)" stroke-width="3"/>
+          <text x="640" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.50 0.12 70)">Verify</text>
+          <text x="640" y="152" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.50 0.12 70)">results</text>
+        </g>
+        <g class="loop-faded">
+          <path d="M640 170 L640 185 Q640 195 630 195 L290 195 Q280 195 280 185 L280 175" fill="none" stroke="oklch(0.68 0.16 340 / 0.3)" stroke-width="2"/>
+          <rect x="765" y="105" width="45" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="787" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" fill="oklch(0.22 0.02 280)">Done</text>
+        </g>
+      </svg>
+      <div class="transition-label">Verification</div>
+    </div>
+
+    <!-- SLIDE 15: Verification (VS Code demo content) -->
+    <div class="slide" data-slide="15">
+      <div class="badge mb-1">Demo &mdash; Verification</div>
+      <h2 style="margin-bottom: 1rem;">Verification</h2>
+      <div class="demo-card">
+        <div class="glass" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem;">Require Tests</h3>
+          <ul>
+            <li>Instruct the agent to write tests and verify they pass</li>
+            <li>Agent-generated unit tests can be self-affirming</li>
+          </ul>
+        </div>
+        <div class="glass mt-1" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.15rem;">Beyond Unit Tests: Playwright</h3>
+          <ul>
+            <li>End-to-end functionality testing</li>
+            <li>Goes beyond code coverage to verify real behavior</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 16: Transition — Done / Best Practices (zoomed loop) -->
+    <div class="slide transition-slide" data-slide="16">
+      <svg xmlns="http://www.w3.org/2000/svg" width="820" height="310" viewBox="0 0 820 310" fill="none" style="max-width: 80%; height: auto; margin-bottom: 1.5rem;">
+        <rect width="820" height="310" rx="12" fill="oklch(0.98 0.006 280)"/>
+        <g>
+          <rect x="20" y="105" width="120" height="55" rx="8" fill="oklch(0.91 0.015 280)"/>
+          <text x="80" y="137" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="oklch(0.22 0.02 280)">Your prompt</text>
+          <rect x="195" y="55" width="510" height="160" rx="12" fill="none" stroke="oklch(0.82 0.02 280)" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <path d="M140 132 L205 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="193,127 205,132 193,137" fill="oklch(0.50 0.02 280)"/>
+        </g>
+        <!-- Highlighted: All loop boxes + Done -->
+        <g class="loop-highlight">
+          <rect x="215" y="95" width="140" height="75" rx="10" fill="oklch(0.52 0.24 290 / 0.15)" stroke="oklch(0.52 0.24 290)" stroke-width="3"/>
+          <text x="285" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="oklch(0.35 0.15 290)">Gather</text>
+          <text x="285" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="oklch(0.35 0.15 290)">context</text>
+          <path d="M355 132 L390 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="388,127 400,132 388,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="390" y="95" width="140" height="75" rx="10" fill="oklch(0.68 0.16 340 / 0.15)" stroke="oklch(0.68 0.16 340)" stroke-width="3"/>
+          <text x="460" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="oklch(0.45 0.12 340)">Take action</text>
+          <text x="460" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="oklch(0.55 0.08 340)">(tools)</text>
+          <path d="M530 132 L565 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="563,127 575,132 563,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="565" y="95" width="140" height="75" rx="10" fill="oklch(0.78 0.14 70 / 0.15)" stroke="oklch(0.65 0.14 70)" stroke-width="3"/>
+          <text x="635" y="130" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="oklch(0.50 0.12 70)">Verify</text>
+          <text x="635" y="148" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="oklch(0.50 0.12 70)">results</text>
+          <path d="M635 170 L635 190 Q635 200 625 200 L295 200 Q285 200 285 190 L285 175" fill="none" stroke="oklch(0.68 0.16 340 / 0.5)" stroke-width="2.5"/>
+          <polygon points="280,178 285,165 290,178" fill="oklch(0.68 0.16 340 / 0.5)"/>
+          <path d="M705 132 L745 132" stroke="oklch(0.50 0.02 280)" stroke-width="2"/>
+          <polygon points="743,127 755,132 743,137" fill="oklch(0.50 0.02 280)"/>
+          <rect x="755" y="95" width="55" height="75" rx="10" fill="oklch(0.55 0.18 150 / 0.15)" stroke="oklch(0.55 0.18 150)" stroke-width="3"/>
+          <text x="782" y="140" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="oklch(0.40 0.14 150)">Done</text>
+        </g>
+      </svg>
+      <div class="transition-label">Best Practices</div>
+    </div>
+
+    <!-- SLIDE 17: Best Practices — Context (combined skills + agents.md) -->
+    <div class="slide" data-slide="17">
+      <div class="badge mb-1">Best Practice #1</div>
+      <h2>Context</h2>
+      <div class="row mt-1" style="align-items: stretch; max-width: 900px;">
+        <div class="col" style="display: flex;">
+          <div class="card" style="display: flex; flex-direction: column; flex: 1;">
+            <h3>Curated Skills</h3>
+            <p style="font-size: 0.95rem; line-height: 1.5;">Curated Skills improve performance by <strong>+16.2pp on average</strong>; self-generated Skills provide negligible or negative benefit.</p>
+            <div class="center mt-1" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+              <img src="images/pdf_page10_img0.png" alt="Skills performance chart" style="max-height: 25vh; max-width: 100%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
+            </div>
+            <p class="small-text mt-1 center" style="font-style: italic;"><a href="https://arxiv.org/html/2602.12670v1" target="_blank">arxiv.org/html/2602.12670v1</a></p>
           </div>
         </div>
+        <div class="col" style="display: flex;">
+          <div class="card" style="display: flex; flex-direction: column; flex: 1;">
+            <h3>agents.md</h3>
+            <p style="font-size: 0.95rem; line-height: 1.5;">Developer-provided files only marginally improve performance (<strong>+4%</strong>), while LLM-generated context files have a small <strong>negative effect</strong>. Context files <strong>increase costs by over 20%</strong>.</p>
+            <div class="center mt-1" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+              <img src="images/pdf_page11_img0.png" alt="Context files performance chart" style="max-height: 25vh; max-width: 100%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
+            </div>
+            <p class="small-text mt-1 center" style="font-style: italic;"><a href="https://arxiv.org/html/2602.11988v1" target="_blank">arxiv.org/html/2602.11988v1</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-        <div class="context-card-main">
-          <h3>Prompting: Explicit is better than implicit</h3>
-          <div class="glass" style="padding: 2rem; margin-top: 1rem;">
+    <!-- SLIDE 18: Best Practices — Version Control: Commits & Branches -->
+    <div class="slide" data-slide="18">
+      <div class="badge mb-1">Best Practice #2</div>
+      <h2>Version Control &mdash; Commits &amp; Branches</h2>
+      <div class="vc-grid mt-2">
+        <div class="card" style="display: flex; flex-direction: column;">
+          <h3 style="color: var(--primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Commit Often</h3>
+          <p style="font-size: 1rem; line-height: 1.6; flex: 1;">Create checkpoints as the agent works. Frequent commits make it easy to roll back and give you a clear history of how the code evolved.</p>
+        </div>
+        <div class="card" style="display: flex; flex-direction: column;">
+          <h3 style="color: var(--secondary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 0.3rem;"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg> Use Branches for Prototypes</h3>
+          <p style="font-size: 1rem; line-height: 1.6; flex: 1;">Use different branches for different prototypes of the same feature. Compare approaches before committing to one direction.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 19: Best Practices — Version Control: PRs -->
+    <div class="slide" data-slide="19">
+      <div class="badge mb-1">Best Practice #2</div>
+      <h2>Version Control &mdash; Pull Requests</h2>
+      <div class="card" style="width: 100%; max-width: 850px; padding: 2rem;">
+        <div class="row" style="align-items: center;">
+          <div class="col">
+            <h3>Human &amp; Agent Review</h3>
             <ul>
-              <li>Reference specific files to show example code</li>
-              <li>Describe the expected output format</li>
-              <li>Break complex tasks into smaller, focused prompts</li>
-              <li>Include constraints and edge cases up front</li>
+              <li><strong>Be mindful with PRs</strong> &mdash; maintainers are getting more PRs than ever from agents. If it's not your repo, think before submitting</li>
+              <li><strong>For critical code, have a human review</strong> &mdash; agent code can look correct but miss edge cases</li>
+              <li><strong>Attach visual proof</strong> &mdash; Playwright screenshots provide evidence that features work</li>
             </ul>
           </div>
-          <p class="small-text mt-2 center" style="line-height: 1.6;">The more precise your prompt, the better the agent's first attempt &mdash; saving iteration cycles.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- SLIDE 13: Verification -->
-    <div class="slide" data-slide="13">
-      <div class="badge mb-1">Best Practice #2</div>
-      <h2>Verification</h2>
-      <div class="three-col mt-2">
-        <div class="card">
-          <div class="verif-icon verif-icon-test">
-            <svg viewBox="0 0 36 36" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 4v10l-6 8a3 3 0 002.5 4.5h15a3 3 0 002.5-4.5l-6-8V4"/>
-              <line x1="12" y1="4" x2="24" y2="4"/>
-              <circle cx="16" cy="24" r="1.5" fill="var(--primary)" stroke="none"/>
-              <circle cx="21" cy="21" r="1" fill="var(--primary)" stroke="none"/>
-            </svg>
+          <div class="col center">
+            <img src="images/playwright-screen.png" alt="Playwright functionality test screenshot" style="max-height: 40vh; max-width: 100%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
           </div>
-          <h3>Unit Tests</h3>
-          <p class="small-text">Validate individual functions and modules produced by the agent.</p>
-        </div>
-        <div class="card">
-          <div class="verif-icon verif-icon-trace">
-            <svg viewBox="0 0 36 36" fill="none" stroke="oklch(0.65 0.14 70)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="4 28 10 18 16 22 22 10 28 14 32 6"/>
-              <circle cx="10" cy="18" r="2" fill="oklch(0.78 0.14 70 / 0.3)"/>
-              <circle cx="22" cy="10" r="2" fill="oklch(0.78 0.14 70 / 0.3)"/>
-              <line x1="4" y1="32" x2="32" y2="32" stroke="oklch(0.65 0.14 70 / 0.4)"/>
-            </svg>
-          </div>
-          <h3>Traces</h3>
-          <p class="small-text">Inspect agent reasoning and tool calls to understand its decisions.</p>
-        </div>
-        <div class="card">
-          <div class="verif-icon verif-icon-func">
-            <svg viewBox="0 0 36 36" fill="none" stroke="var(--secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="6" width="28" height="20" rx="2"/>
-              <line x1="4" y1="12" x2="32" y2="12"/>
-              <circle cx="8" cy="9" r="1" fill="oklch(0.65 0.18 25)"/>
-              <circle cx="12" cy="9" r="1" fill="oklch(0.75 0.15 85)"/>
-              <circle cx="16" cy="9" r="1" fill="oklch(0.60 0.18 145)"/>
-              <polyline points="13 20 16 23 23 16" stroke="oklch(0.55 0.18 150)" stroke-width="2.5"/>
-            </svg>
-          </div>
-          <h3>Functionality Tests</h3>
-          <p class="small-text">End-to-end checks that the feature works as intended.</p>
         </div>
       </div>
     </div>
 
-    <!-- SLIDE 14: Verification — Playwright functionality test -->
-    <div class="slide" data-slide="14">
-      <div class="badge mb-1">Best Practice #2</div>
-      <h2>Functionality Testing with Playwright</h2>
-      <div class="card center" style="width: 100%; max-width: 850px; padding: 2rem;">
-        <p style="font-size: 1.15rem; margin-bottom: 1.5rem;">Playwright screenshots automatically attached to PRs provide visual proof that features work correctly.</p>
-        <img src="images/playwright-screen.png" alt="Playwright functionality test screenshot" style="max-height: 55vh; max-width: 100%; border-radius: 0.75rem; box-shadow: 0 4px 16px oklch(0 0 0 / 0.1);" />
-      </div>
-    </div>
-
-    <!-- SLIDE 15: Version Control -->
-    <div class="slide" data-slide="15">
-      <div class="badge mb-1">Best Practice #3</div>
-      <h2>Version Control</h2>
-      <div class="card" style="width: 100%; max-width: 700px;">
-        <ul>
-          <li><strong>Commit often</strong> &mdash; create checkpoints as the agent works</li>
-          <li><strong>Maintain documentation</strong> &mdash; keep READMEs and docs in sync</li>
-          <li><strong>Think twice before sending a PR</strong> &mdash; review agent-generated code carefully</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SLIDE 16: Demo -->
-    <div class="slide slide-section" data-slide="16">
-      <div class="badge mb-1">Live Demo</div>
-      <h2>Using GitHub Copilot<br/>in PyCharm &amp; the Terminal</h2>
-      <div class="sparkle mt-1">&#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022; &middot; &#10022;</div>
-      <p class="mt-2"><a href="https://aka.ms/pytv26" style="font-size: 1.3rem;">aka.ms/pytv26</a></p>
-    </div>
-
-    <!-- SLIDE 17: Thank You / Summary -->
-    <div class="slide slide-title" data-slide="17">
+    <!-- SLIDE 20: Thank You / Summary -->
+    <div class="slide slide-title" data-slide="20">
       <div class="center">
         <h1>Thank You!</h1>
         <div class="card" style="max-width: 650px; width: 100%; padding: 2rem 2.5rem; text-align: left;">
           <h3 style="margin-bottom: 1rem; text-align: center; color: var(--primary);">What We Covered</h3>
           <ul>
-            <li><strong>What is Agentic Coding</strong> &mdash; AI agents, the agentic loop, coding agent anatomy</li>
-            <li><strong>Context</strong> &mdash; skill.md, agents.md, and effective prompting</li>
-            <li><strong>Verification</strong> &mdash; unit tests, traces, and functionality tests</li>
-            <li><strong>Version Control</strong> &mdash; commit often, maintain docs, review PRs carefully</li>
+            <li><strong>Evolution of AI &amp; Coding</strong> &mdash; from autocomplete to agentic coding</li>
+            <li><strong>Coding Agents</strong> &mdash; AI agent definition, the agentic loop</li>
+            <li><strong>Demo</strong> &mdash; gather context, take action with tools, verification</li>
+            <li><strong>Context</strong> &mdash; curated skills &amp; agents.md</li>
+            <li><strong>Version Control</strong> &mdash; commit often, branch for prototypes, review PRs carefully</li>
           </ul>
         </div>
         <p class="mt-2"><a href="https://aka.ms/pytv26" style="font-size: 1.4rem; font-weight: 600;">aka.ms/pytv26</a></p>
@@ -1083,7 +1328,7 @@
   <div class="progress" id="progress"></div>
 
   <!-- Slide number -->
-  <div class="slide-num" id="slideNum">1 / 17</div>
+  <div class="slide-num" id="slideNum">1 / 20</div>
 
   <!-- Speaker link -->
   <div class="speaker-badge"><a href="https://aka.ms/pytv26">aka.ms/pytv26</a></div>

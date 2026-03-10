@@ -1,0 +1,58 @@
+Practical Guide to Agentic Coding 
+
+The first three slides are good as they are, except you should update slide two which is the agenda slide to reflect the changes I’ve asked for. After that we need to edit the slides in the following way. 
+
+The evolution of AI and Coding (slide 4, 5, 6) 
+(Use the design you have on slide ten, eleven and twelve for the following three slides) 
+
+Code Completion 
+Autocomplete (use the image called ‘code_completion_slide_image’ for this slide)
+
+Code Generation
+An LLM can generate functions or scripts and you’d need to copy and paste the code into your files. Or you could copy and paste code and error messages into ChatGPT and it could help you understand what the problem was. (use the image called ‘code_generation_slide_image’ for this slide)
+
+Agentic Coding
+With agentic coding we now move to much more autonomous systems where an AI Agent has direct access to your workspace. It can plan, write code, execute commands and debug on its own. (use the image called ‘agentic_coding_slide_image’ for this slide)
+
+Coding Agents (slide 7) 
+Today there are many different Coding agents you can use. Whether you want to work in an IDE, CLI, the Web or build your own custom agents you can. Even though there are many coding agents available, most of them work the same way. A good way to understand how to get the most of coding agents is to know how they work. 
+
+(have a diagram listing out which agents are available in these places).   
+
+What is an AI Agent (slide 8) 
+To begin with, let's define what an AI Agent is. A widely accepted definition today is that 
+ An AI Agent is an LLM that calls tools in a loop to achieve a goal.
+
+The Agentic Loop (slide 9) 
+
+When it comes to coding agents they are often characterised by an Agentic Loop that looks like this. I actually took this image from a blogpost by Anthropic about how claude code works. For the rest of this talk we’ll use these three different parts of the agentic loop – gathering context, taking action with tools, and verifying results to see practically how to work with coding agents. When you give a coding agent a prompt for it to return the best results possible you need to give it as much high quality context as you can. To see what this looks like lets switch over to VS Code and use GitHub Copilot as the coding agent. 
+
+
+
+VS Code (it would be great to have slides in before or in between (transition slides) the following three slides that go back to the agentic loop diagram from slide 9 but zoom in almost of the specific part of the diagram we are referring to from slide 9. Try be creative here for that) 
+
+Gather context (slide 10) 
+The most common way to provide an agent with context is to attach a relevant file to the chat. In copilot just by clicking on a file it should show up here ready for the agent to use. You can also click this context button and it will let you attach things like screenshots, Github issues and PRs. One way I like to use this is if I want an agent to generate a new feature but using a core API I use often, I’ll keep an example file with the code in it like this and tell the agent to use that as a starting point. I’ve found that agents sometimes use old APIs or overcomplicate code, so this helps to ensure that at least the core code I’m concerned about is based on best practices. I also like to say make the code as minimal and elegant as possible (have an example of agent with one style of code and have the agent update it based on best practices example file) 
+
+Another way to give an agent context is to create a file that helps it know how to behave. I mentioned earlier that you can build your own custom coding agents and to show an example of this here’s a file that I made earlier that contains the code needed to build an agent using the Github Copilot SDK. This is the code needed to create a new agent session, here we’re setting the LLM to be x and then this is the line of code we’re using to pass through the user prompt, in this case I’m just saying hello copilot. You’ll see the response here is a bit strange, it's greeting me and assuming I’m a running influencer and asking how it can help me get started. There’s nothing directly in our code that references this but earlier I created a copilot-instructions.md file that told the agent to act like an assistant helping a running influencer. The agent even in the sdk is going to see if an instructions file is provided and if it is will use that to define how it behaves. Different coding agents will use different files for this for example cursor has cursor rules files, claude has claude.md and openai has agents.md. Agents.md has actually become a bit of a standard and a second thing I’ll show you here is that I can create different agents.md files in an agents folder, and this will create custom agents in copilot that will each behave in specific ways. Lets say hi to our Python expert agent for example here. 
+
+Take Action using tools (slide 11) 
+Ok, great so we’ve seen a couple of ways we can help provide context to an agent. The next step in the agentic Loop is giving an agent tools so it can take action. Almost all coding agents these days come with standard planning, file reading and execution tools. For the sake of this talk lets see how we can give an agent access to more tools. One way to do this is through MCP. MCP is Model Context Protocol and it's an open protocol created by Anthropic. The primary way I see developers using MCP is to give their agents access to tools. In VS Code if you go to extensions and type in @mcp you’ll get a list of MCP Servers that have been vetted by Github that you can install and have your agent use. You can also create your own MCP servers with code. Once a server is installed I’ll click here on the tool icon and I can check the tools I want my agent to have access to. For example I can click…
+
+Another way we can give our agent access to tools is through Agent Skills. To create a skill I need to… To test out that this skill works I’ll go ahead and open my terminal and we’ll test it out using the Github Copilot CLI
+
+
+Verification (slide 12) 
+A final thing I want to talk about is the last part of that agentic Loop which is verification. Once an agent has taken all the actions it can, it might come back and ask you for more context to complete the task, or it might run the code and if it sees errors will start to debug and repeat the loop. For developers working on projects where they want to use Coding agents to add in new features or fix issues, its best practice to add instructions to your agent.md or copilot-instructions file to tell the agent to always add tests for any significant changes its made and then to verify tests pass before it comes back saying its done. I’ve noticed that although agents tend to be quite good at generating unit tests, these tests can be self affirming (find a study if possible.) One way we can go beyond code coverage tests and add an extra step to the verification process is by using Playwright
+
+Best Practices (slide 13) 
+
+Skills and agents.md combine the information from slide 10 and 11 of the original presentation to make one slide about context. Don’t keep the slide about prompting
+
+Best Practices (slide 14 and 15, will both be about version control)  
+Have slide 14 be about committing often and using different branches for different prototypes of the same feature
+ Have slide 15 be about sending PRs, use the playwright example on slide 14 of the original but also add in the comment about not sending too many PRs on this slide 
+Remove the current slide 16
+
+Summary
+Use the same general look of slide 17 but update it to be accurate with the changes 
